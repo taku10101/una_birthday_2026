@@ -2,6 +2,7 @@
 const slides = [
   {
     title: "スライド1",
+    icon: "./icon.png",
     content: "ここに文字をたくさんかきます",
     footer: ""
   },
@@ -27,8 +28,20 @@ let currentSlide = 0;
 // スライドを表示する関数
 function showSlide(index) {
   const slide = slides[index];
+  
+  // アイコンの表示処理
+  let iconHtml = '';
+  if (slide.icon) {
+    // URLの場合は画像として表示、それ以外はそのまま表示（絵文字やUnicode文字など）
+    if (slide.icon.startsWith('http://') || slide.icon.startsWith('https://') || slide.icon.startsWith('./') || slide.icon.startsWith('../')) {
+      iconHtml = `<img src="${slide.icon}" alt="icon" class="title-icon" />`;
+    } else {
+      iconHtml = `<span class="title-icon">${slide.icon}</span>`;
+    }
+  }
+  
   const content = `
-    <p>${slide.title}</p>
+    <p class="slide-title">${iconHtml}${slide.title}</p>
     <p>${slide.content}</p>
     ${slide.footer ? `<p>${slide.footer}</p>` : ''}
   `;

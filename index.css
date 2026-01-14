@@ -98,6 +98,32 @@ body {
   color: #ff969f;
 }
 
+.slide-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  border-radius: 50%;
+  height: 64px;
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.title-icon img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
 #slide-content p:nth-child(2) {
   font-size: 20px;
   color: black;
