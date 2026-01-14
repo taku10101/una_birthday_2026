@@ -491,11 +491,8 @@ body {
 }
 
 /* スライドナビゲーション */
-.envelope .back .slide-nav {
-  position: absolute;
-  top: 380px;
-  left: 10px;
-  width: 530px;
+.envelope .back .letter .slide-nav {
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -534,5 +531,6 @@ body {
 
 #slide-content {
   overflow-y: auto;
-  height: 100%;
+  min-height: 200px;
+  max-height: 250px;
 }
