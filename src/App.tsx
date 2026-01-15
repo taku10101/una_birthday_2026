@@ -1,5 +1,5 @@
 import React from 'react'
-import Envelope from './components/Envelope'
+import Envelope from './components/Envelope/Envelope'
 import { slides } from './data/slides'
 
 function App() {

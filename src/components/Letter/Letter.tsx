@@ -1,7 +1,8 @@
-import SlideContent from './SlideContent'
-import { Slide } from '../data/slides'
-import { useSlide } from '../hooks/useSlide'
+import SlideContent from '../SlideContent/SlideContent'
+import { Slide } from '../../data/slides'
+import { useSlide } from '../../hooks/useSlide'
 import { useState } from 'react'
+import styles from './Letter.module.css'
 
 interface LetterProps {
   slides: Slide[]
@@ -26,21 +27,21 @@ export default function Letter({ slides, onComplete }: LetterProps) {
   }
 
   return (
-    <div className="letter">
+    <div className={styles.letter}>
       <SlideContent slide={currentSlideData} />
-      <div className="slide-nav">
+      <div className={styles.slideNav}>
         <button
-          className="nav-btn"
+          className={styles.navBtn}
           onClick={goToPrev}
           disabled={isFirst}
         >
           ← 前へ
         </button>
-        <span className="slide-counter">
+        <span className={styles.slideCounter}>
           {currentSlide + 1} / {totalSlides}
         </span>
         <button
-          className="nav-btn"
+          className={styles.navBtn}
           onClick={handleNextClick}
           disabled={isLast}
         >

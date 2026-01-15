@@ -1,7 +1,8 @@
-import { Slide } from '../data/slides'
+import { Slide } from '../../data/slides'
 import Markdown from 'react-markdown'
 import { useState, useEffect } from 'react'
-import { loadMarkdown } from '../utils/markdownLoader'
+import { loadMarkdown } from '../../utils/markdownLoader'
+import styles from './SlideContent.module.css'
 
 interface SlideContentProps {
   slide: Slide
@@ -34,19 +35,19 @@ export default function SlideContent({ slide }: SlideContentProps) {
                       slide.icon.startsWith('/')
 
     if (isImageUrl) {
-      return <img src={slide.icon} alt="icon" className="title-icon" />
+      return <img src={slide.icon} alt="icon" className={styles.titleIcon} />
     } else {
-      return <span className="title-icon">{slide.icon}</span>
+      return <span className={styles.titleIcon}>{slide.icon}</span>
     }
   }
 
   return (
-    <div className="slide-content">
-      <p className="slide-title" style={{ color: slide.titleColor }}>
+    <div className={styles.slideContent}>
+      <p className={styles.slideTitle} style={{ color: slide.titleColor }}>
         {renderIcon()}
         {slide.title}
       </p>
-      <div className="slide-content-markdown">
+      <div className={styles.slideContentMarkdown}>
         {isLoading ? (
           <p>Loading...</p>
         ) : (
