@@ -12,19 +12,4 @@ export const slides: Slide[] = [
     icon: "/icon.png",
     content: "/slides/slide1.md"
   },
-  {
-    title: "スライド2",
-    titleColor: "#9370db",
-    content: "/slides/slide2.md"
-  },
-  {
-    title: "スライド3",
-    titleColor: "#20b2aa",
-    content: "/slides/slide3.md"
-  },
-  {
-    title: "最後のスライド",
-    titleColor: "#ff6347",
-    content: "/slides/slide4.md"
-  }
 ]
