@@ -73,6 +73,15 @@ body {
   font-weight: bold;
   margin: 0;
 }
+.envelope .front .mail .click {
+  font-size: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
 .envelope .back .letter p {
   font-size: 24px;
   line-height: 1.5;
@@ -204,10 +213,8 @@ body {
 .envelope .back .letter {
   z-index: 1;
   position: absolute;
-  top: 5px;
-  left: 10px;
   width: 530px;
-  height: 346.66667px;
+  height: 360px;
   background-color: #FFF;
   border-radius: 5px;
   padding: 20px 30px;
@@ -216,7 +223,6 @@ body {
 }
 .envelope .back .letter div {
   position: relative;
-  margin-top: 25px;
 }
 .envelope .back .letter label {
   position: absolute;
@@ -532,9 +538,9 @@ body {
 .envelope .back .letter .slide-nav {
   margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 40px;
   z-index: 10;
 }
 
@@ -571,10 +577,215 @@ body {
   height: 250px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
 }
 
 .slide-content-markdown {
   flex: 1;
   overflow-y: auto;
   min-height: 0;
+  position: relative;
+  padding-right: 8px;
+  /* スクロールバーをより目立たせる */
+  scrollbar-width: thin;
+  scrollbar-color: #ff969f rgba(255, 150, 159, 0.2);
+}
+
+/* Webkit系ブラウザ用のスクロールバースタイル */
+.slide-content-markdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.slide-content-markdown::-webkit-scrollbar-track {
+  background: rgba(255, 150, 159, 0.1);
+  border-radius: 3px;
+}
+
+.slide-content-markdown::-webkit-scrollbar-thumb {
+  background: #ff969f;
+  border-radius: 3px;
+}
+
+.slide-content-markdown::-webkit-scrollbar-thumb:hover {
+  background: #f57882;
+}
+
+/* スクロール可能であることを示すグラデーション */
+.slide-content-markdown.is-scrollable::after {
+  content: '';
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.95));
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+/* スクロール可能で、かつ最上部にいる場合にグラデーションを表示 */
+.slide-content-markdown.is-scrollable:not(:hover)::after {
+  opacity: 1;
+}
+
+/* スクロールインジケーター */
+.scroll-indicator {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.scroll-arrow {
+  color: #ff969f;
+  font-size: 24px;
+  animation: scroll-indicator 2s infinite;
+  font-weight: bold;
+}
+
+.scroll-text {
+  color: #ff969f;
+  font-size: 12px;
+  font-family: "Allan", sans-serif;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+@keyframes scroll-indicator {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+}
+
+/* モーダルスタイル */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+  max-height: 90vh;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+  font-family: "Allan", sans-serif;
+}
+
+.modal-title .slide-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 36px;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #ff969f;
+}
+
+.modal-body {
+  padding: 30px;
+  overflow-y: auto;
+  flex: 1;
+  max-height: calc(90vh - 100px);
+}
+
+.modal-body .slide-content-markdown {
+  height: auto;
+  max-height: none;
+}
+
+.modal-open-btn {
+  background-color: #ff969f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-family: "Allan", sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+}
+
+.modal-open-btn:hover {
+  background-color: #f57882;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

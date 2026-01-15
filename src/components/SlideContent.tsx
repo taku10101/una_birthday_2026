@@ -1,6 +1,6 @@
 import { Slide } from '../data/slides'
 import Markdown from 'react-markdown'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { loadMarkdown } from '../utils/markdownLoader'
 
 interface SlideContentProps {
@@ -10,6 +10,9 @@ interface SlideContentProps {
 export default function SlideContent({ slide }: SlideContentProps) {
   const [markdownContent, setMarkdownContent] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isScrollable, setIsScrollable] = useState<boolean>(false)
+  const [showScrollIndicator, setShowScrollIndicator] = useState<boolean>(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setIsLoading(true)
@@ -23,6 +26,44 @@ export default function SlideContent({ slide }: SlideContentProps) {
         setIsLoading(false)
       })
   }, [slide.content])
+
+  useEffect(() => {
+    const checkScrollable = () => {
+      if (scrollRef.current) {
+        const element = scrollRef.current
+        const isScrollableElement = element.scrollHeight > element.clientHeight
+        setIsScrollable(isScrollableElement)
+        setShowScrollIndicator(isScrollableElement && element.scrollTop === 0)
+      }
+    }
+
+    // コンテンツ読み込み後にチェック
+    if (!isLoading) {
+      setTimeout(checkScrollable, 100)
+    }
+
+    const handleScroll = () => {
+      if (scrollRef.current) {
+        const element = scrollRef.current
+        setShowScrollIndicator(
+          isScrollable && element.scrollTop === 0
+        )
+      }
+    }
+
+    const scrollElement = scrollRef.current
+    if (scrollElement) {
+      scrollElement.addEventListener('scroll', handleScroll)
+      window.addEventListener('resize', checkScrollable)
+    }
+
+    return () => {
+      if (scrollElement) {
+        scrollElement.removeEventListener('scroll', handleScroll)
+        window.removeEventListener('resize', checkScrollable)
+      }
+    }
+  }, [isLoading, isScrollable])
 
   const renderIcon = () => {
     if (!slide.icon) return null
@@ -40,19 +81,34 @@ export default function SlideContent({ slide }: SlideContentProps) {
     }
   }
 
-  return (
-    <div className="slide-content">
-      <p className="slide-title" style={{ color: slide.titleColor }}>
-        {renderIcon()}
-        {slide.title}
-      </p>
-      <div className="slide-content-markdown">
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <Markdown>{markdownContent}</Markdown>
-        )}
-      </div>
+  const renderContent = (showIndicator: boolean = true) => (
+    <div 
+      className={`slide-content-markdown ${isScrollable && showIndicator ? 'is-scrollable' : ''}`} 
+      ref={showIndicator ? scrollRef : undefined}
+    >
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Markdown>{markdownContent}</Markdown>
+      )}
+      {showIndicator && showScrollIndicator && (
+        <div className="scroll-indicator">
+          <span className="scroll-arrow">↓</span>
+          <span className="scroll-text">スクロールできます</span>
+        </div>
+      )}
     </div>
+  )
+
+  return (
+    <>
+      <div className="slide-content">
+        <p className="slide-title" style={{ color: slide.titleColor }}>
+          {renderIcon()}
+          {slide.title}
+        </p>
+        {renderContent()}
+      </div>
+    </>
   )
 }
