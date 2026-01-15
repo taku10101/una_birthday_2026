@@ -815,3 +815,78 @@ body {
     opacity: 1;
   }
 }
+
+/* ==================== レスポンシブ対応 ==================== */
+/* bodyにscaleを適用してアニメーションと競合しない */
+
+/* デスクトップ小 */
+@media screen and (max-width: 1024px) {
+  body {
+    transform: scale(0.85);
+    transform-origin: center center;
+  }
+}
+
+/* タブレット */
+@media screen and (max-width: 768px) {
+  body {
+    transform: scale(0.75);
+    transform-origin: center center;
+  }
+}
+
+/* 大型スマホ */
+@media screen and (max-width: 600px) {
+  body {
+    transform: scale(0.65);
+    transform-origin: center center;
+  }
+}
+
+/* 中型スマホ */
+@media screen and (max-width: 480px) {
+  body {
+    transform: scale(0.58);
+    transform-origin: center center;
+  }
+}
+
+/* 小型スマホ */
+@media screen and (max-width: 400px) {
+  body {
+    transform: scale(0.55);
+    transform-origin: center center;
+  }
+}
+
+/* 極小スマホ */
+@media screen and (max-width: 320px) {
+  body {
+    transform: scale(0.45);
+    transform-origin: center center;
+  }
+}
+
+/* 横向き - タブレット */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  body {
+    transform: scale(0.55);
+    transform-origin: center center;
+  }
+}
+
+/* 横向き - スマホ */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  body {
+    transform: scale(0.5);
+    transform-origin: center center;
+  }
+}
+
+/* 横向き - 小型スマホ */
+@media screen and (max-height: 400px) and (orientation: landscape) {
+  body {
+    transform: scale(0.4);
+    transform-origin: center center;
+  }
+}
