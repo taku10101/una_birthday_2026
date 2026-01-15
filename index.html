@@ -1,40 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <div class="envelope new">
-        <div class="front">
-          <div class="mail">
-            <p>Happy Birthday una</p>
-            <b class="click">Click!!</b>
-          </div>
-        </div>
-        <div class="back">
-          <div class="letter">
-            <div id="slide-content"></div>
-            <div class="slide-nav">
-              <button id="prev-slide" class="nav-btn">← 前へ</button>
-              <span id="slide-counter"></span>
-              <button id="next-slide" class="nav-btn">次へ →</button>
-            </div>
-          </div>
-          <div class="flip left-flip"></div>
-          <div class="flip right-flip"></div>
-          <div class="flip bottom-flip"></div>
-          <div class="flip top-flip"></div>
-        </div>
-      </div>
-        <script src="./index.js" >
-            
-        </script>
-	</div>
-</body>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
-
-
