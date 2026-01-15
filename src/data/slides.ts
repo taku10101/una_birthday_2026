@@ -1,30 +1,30 @@
 export interface Slide {
   title: string
+  titleColor?: string
   icon?: string
-  content: string
-  footer?: string
+  content: string  // Markdown string or path to .md file (e.g., "/slides/slide1.md")
 }
 
 export const slides: Slide[] = [
   {
     title: "スライド1",
+    titleColor: "#ff69b4",
     icon: "/icon.png",
-    content: "ここに文字をたくさんかきます",
-    footer: ""
+    content: "/slides/slide1.md"
   },
   {
     title: "スライド2",
-    content: "2枚目のスライド内容です",
-    footer: ""
+    titleColor: "#9370db",
+    content: "/slides/slide2.md"
   },
   {
     title: "スライド3",
-    content: "3枚目のスライド内容です",
-    footer: ""
+    titleColor: "#20b2aa",
+    content: "/slides/slide3.md"
   },
   {
     title: "最後のスライド",
-    content: "ありがとうございました",
-    footer: "From Your Friend"
+    titleColor: "#ff6347",
+    content: "/slides/slide4.md"
   }
 ]

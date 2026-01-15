@@ -568,7 +568,13 @@ body {
 }
 
 .slide-content {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-content-markdown {
+  flex: 1;
   overflow-y: auto;
-  min-height: 200px;
-  max-height: 250px;
+  min-height: 0;
 }

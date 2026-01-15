@@ -1,7 +1,6 @@
-import SlideContent from './SlideContent'
+import Letter from './Letter'
 import { Slide } from '../data/slides'
-import { useSlide } from '../hooks/useSlide'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 interface EnvelopeProps {
   isOpen: boolean
@@ -10,15 +9,10 @@ interface EnvelopeProps {
 }
 
 export default function Envelope({ isOpen, onEnvelopeClick, slides }: EnvelopeProps) {
-  const { currentSlide, currentSlideData, goToNext, goToPrev, isFirst, isLast, totalSlides } = useSlide(slides)
   const [isHidden, setIsHidden] = useState(false)
 
-  const handleNextClick = () => {
-    if (isLast) {
-      setIsHidden(true)
-    } else {
-      goToNext()
-    }
+  const handleLetterComplete = () => {
+    setIsHidden(true)
   }
 
   const envelopeClasses = [
@@ -39,28 +33,7 @@ export default function Envelope({ isOpen, onEnvelopeClick, slides }: EnvelopePr
         </div>
       </div>
       <div className="back">
-        <div className="letter">
-          <SlideContent slide={currentSlideData} />
-          <div className="slide-nav">
-            <button 
-              className="nav-btn" 
-              onClick={goToPrev}
-              disabled={isFirst}
-            >
-              ← 前へ
-            </button>
-            <span className="slide-counter">
-              {currentSlide + 1} / {totalSlides}
-            </span>
-            <button 
-              className="nav-btn" 
-              onClick={handleNextClick}
-              disabled={isLast}
-            >
-              次へ →
-            </button>
-          </div>
-        </div>
+        <Letter slides={slides} onComplete={handleLetterComplete} />
         <div className="flip left-flip"></div>
         <div className="flip right-flip"></div>
         <div className="flip bottom-flip"></div>
