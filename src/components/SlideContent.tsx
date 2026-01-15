@@ -108,6 +108,7 @@ export default function SlideContent({ slide }: SlideContentProps) {
           {slide.title}
         </p>
         {renderContent()}
+        <div className="right-scroll-arrow">↓</div>
       </div>
     </>
   )

@@ -574,6 +574,7 @@ body {
 }
 
 .slide-content {
+  position: relative;
   height: 250px;
   display: flex;
   flex-direction: column;
@@ -786,6 +787,31 @@ body {
   }
   to {
     transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 右側の動く下矢印 */
+.slide-content .right-scroll-arrow {
+  position: absolute;
+  left: 50%;
+  top: -60%;
+  transform: translateY(-50%);
+  color: #ff969f;
+  font-size: 28px;
+  font-weight: bold;
+  animation: right-arrow-bounce 2s infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes right-arrow-bounce {
+  0%, 100% {
+    transform: translateY(calc(-50% + 0px));
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(calc(-50% + 8px));
     opacity: 1;
   }
 }
