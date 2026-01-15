@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import SlideContent from './SlideContent'
 import { Slide } from '../data/slides'
 import { useSlide } from '../hooks/useSlide'
+import React, { useState } from 'react'
 
 interface EnvelopeProps {
   isOpen: boolean
@@ -55,7 +55,7 @@ export default function Envelope({ isOpen, onEnvelopeClick, slides }: EnvelopePr
             <button 
               className="nav-btn" 
               onClick={handleNextClick}
-              disabled={false}
+              disabled={isLast}
             >
               次へ →
             </button>

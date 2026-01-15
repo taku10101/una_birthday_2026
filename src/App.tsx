@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import React from 'react'
 import Envelope from './components/Envelope'
 import { slides } from './data/slides'
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = React.useState(false)
 
   const handleEnvelopeClick = () => {
     if (!isOpen) {
