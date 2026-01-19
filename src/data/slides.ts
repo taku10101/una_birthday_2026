@@ -2,7 +2,7 @@ export interface Slide {
   title: string
   titleColor?: string
   icon?: string
-  content: string  // Markdown string or path to .md file (e.g., "/slides/slide1.md")
+  content: string  // Content string or path to .md/.html file (e.g., "/slides/slide1.md" or "/slides/slide1.html")
 }
 
 export const slides: Slide[] = [
@@ -34,7 +34,7 @@ export const slides: Slide[] = [
     title: "88",
     titleColor: "#ff69b4",
     icon: "/88.png",
-    content: "/slides/88.md"
+    content: "/slides/88.html"
   },
 
 ]

@@ -589,6 +589,7 @@ body {
   min-height: 0;
   position: relative;
   padding-right: 8px;
+  font-size: 16px;
   /* スクロールバーをより目立たせる */
   scrollbar-width: thin;
   scrollbar-color: #ff969f rgba(255, 150, 159, 0.2);

@@ -1,5 +1,7 @@
 import { Slide } from '../data/slides'
 import Markdown from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
+import rehypeRaw from 'rehype-raw'
 import { useState, useEffect, useRef } from 'react'
 import { loadMarkdown } from '../utils/markdownLoader'
 
@@ -8,21 +10,25 @@ interface SlideContentProps {
 }
 
 export default function SlideContent({ slide }: SlideContentProps) {
-  const [markdownContent, setMarkdownContent] = useState<string>('')
+  const [content, setContent] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isHtml, setIsHtml] = useState<boolean>(false)
   const [isScrollable, setIsScrollable] = useState<boolean>(false)
   const [showScrollIndicator, setShowScrollIndicator] = useState<boolean>(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setIsLoading(true)
+    const isHtmlFile = slide.content.endsWith('.html')
+    setIsHtml(isHtmlFile)
+
     loadMarkdown(slide.content)
-      .then((content) => {
-        setMarkdownContent(content)
+      .then((loadedContent) => {
+        setContent(loadedContent)
         setIsLoading(false)
       })
       .catch(() => {
-        setMarkdownContent('Error loading content')
+        setContent('Error loading content')
         setIsLoading(false)
       })
   }, [slide.content])
@@ -82,14 +88,25 @@ export default function SlideContent({ slide }: SlideContentProps) {
   }
 
   const renderContent = (showIndicator: boolean = true) => (
-    <div 
-      className={`slide-content-markdown ${isScrollable && showIndicator ? 'is-scrollable' : ''}`} 
+    <div
+      className={`slide-content-markdown ${isScrollable && showIndicator ? 'is-scrollable' : ''}`}
       ref={showIndicator ? scrollRef : undefined}
     >
       {isLoading ? (
         <p>Loading...</p>
+      ) : isHtml ? (
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       ) : (
-        <Markdown>{markdownContent}</Markdown>
+        <Markdown
+          remarkPlugins={[remarkBreaks]}
+          rehypePlugins={[rehypeRaw]}
+          components={{
+            p: ({ children }) => <p style={{ margin: '8px 0' }}>{children}</p>,
+            br: () => <br />
+          }}
+        >
+          {content}
+        </Markdown>
       )}
       {showIndicator && showScrollIndicator && (
         <div className="scroll-indicator">
